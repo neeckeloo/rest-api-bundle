@@ -6,7 +6,6 @@ use Doctrine\Common\Annotations\Reader;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\ResourceAbstract;
 use Psr\Http\Message\ServerRequestInterface;
-use Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory;
 use WizardsRest\Annotation\Type;
 use WizardsRest\Paginator\PaginatorInterface;
 use WizardsRest\Provider;
@@ -29,11 +28,6 @@ class ResourceProvider
     private $paginator;
 
     /**
-     * @var DiactorosFactory
-     */
-    private $psrFactory;
-
-    /**
      * @var Reader
      */
     private $reader;
@@ -51,7 +45,6 @@ class ResourceProvider
         $this->provider = $provider;
         $this->paginator = $paginator;
         $this->reader = $reader;
-        $this->psrFactory = new DiactorosFactory();
     }
 
     /**
@@ -142,7 +135,7 @@ class ResourceProvider
      * If the result is an array (and contains and id or children with id), then pass a dummy transformer,
      * otherwise, use the default transformer from the library.
      *
-     * @TODO: it might not feel really natural that the entity transformer is the default one.
+     * It might not feel really natural that the entity transformer is the default one.
      * We might want a simpler default, or no default at all. Discussion is open !
      *
      * @param mixed $result
